@@ -17,8 +17,8 @@ public class Wallet {
     private BigDecimal balance;
     private final Map<Crypto, BigDecimal> cryptos;
 
-    public Wallet(BigDecimal balance) {
-        this.balance = balance;
+    public Wallet() {
+        this.balance = BigDecimal.ZERO;
         this.cryptos = new HashMap<>();
     }
 
@@ -44,6 +44,9 @@ public class Wallet {
 
     public void withdrawCrypto(Crypto crypto, BigDecimal amount) {
         cryptos.merge(crypto, amount.negate(), BigDecimal::add);
+        if (cryptos.get(crypto).compareTo(BigDecimal.ZERO) <= 0) {
+            cryptos.remove(crypto);
+        }
     }
 
     public boolean hasEnoughCrypto(Crypto crypto, BigDecimal amount) {

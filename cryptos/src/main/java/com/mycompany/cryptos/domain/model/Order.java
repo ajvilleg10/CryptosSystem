@@ -5,8 +5,9 @@
  */
 package com.mycompany.cryptos.domain.model;
 
-import com.mycompany.cryptos.domain.enums.OrderType;
+import com.mycompany.cryptos.domain.model.enums.OrderType;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 /**
  *
@@ -20,8 +21,8 @@ public class Order {
     private final BigDecimal price;
     private final OrderType type;
 
-    public Order(String orderID, String userID, Crypto crypto, BigDecimal amount, BigDecimal price, OrderType type) {
-        this.orderID = orderID;
+    public Order(String userID, Crypto crypto, BigDecimal amount, BigDecimal price, OrderType type) {
+        this.orderID = UUID.randomUUID().toString();
         this.userID = userID;
         this.crypto = crypto;
         this.amount = amount;

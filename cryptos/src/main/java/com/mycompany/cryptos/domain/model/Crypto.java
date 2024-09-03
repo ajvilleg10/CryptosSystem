@@ -13,11 +13,13 @@ import java.util.Objects;
  * @author User
  */
 public class Crypto {
+    private final String cryptoID;
     private final String name;
     private final String symbol;
     private BigDecimal actualPrice;
 
-    public Crypto(String name, String symbol, BigDecimal price) {
+    public Crypto(String name,String symbol, BigDecimal price) {
+        this.cryptoID =  symbol + '@' + symbol.hashCode();
         this.name = name;
         this.symbol = symbol;
         this.actualPrice = price;
@@ -35,10 +37,14 @@ public class Crypto {
         return actualPrice;
     }
 
+    public void setActualPrice(BigDecimal actualPrice) {
+        this.actualPrice = actualPrice;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 83 * hash + Objects.hashCode(this.symbol);
+        hash = 83 * hash + Objects.hashCode(this.cryptoID);
         return hash;
     }
 
@@ -54,7 +60,7 @@ public class Crypto {
             return false;
         }
         final Crypto other = (Crypto) obj;
-        if (!Objects.equals(this.symbol, other.symbol)) {
+        if (!Objects.equals(this.cryptoID, other.cryptoID)) {
             return false;
         }
         return true;
@@ -62,6 +68,7 @@ public class Crypto {
 
     @Override
     public String toString() {
-        return "Crypto{" + "name=" + name + ", symbol=" + symbol + ", currentPrice=" + actualPrice + '}';
+        return "Crypto{" + "cryptoID=" + cryptoID + ", name=" + name + ", symbol=" + symbol + ", actualPrice=" + actualPrice + '}';
     }
+
 }
